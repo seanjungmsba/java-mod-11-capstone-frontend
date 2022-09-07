@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from 'src/app/services/product.service';
 import { Product } from 'src/app/common/product';
 import { ActivatedRoute } from '@angular/router';
+import { timeoutWith } from 'rxjs/operators';
 import { CartItem } from 'src/app/common/cart-item';
 import { CartService } from 'src/app/services/cart.service';
 
@@ -82,6 +83,11 @@ export class ProductListComponent implements OnInit {
       // not category id available ... default to category id 1
       this.currentCategoryId = 1;
     }
+
+    //
+    // Check if we have a different category than previous
+    // Note: Angular will reuse a component if it is currently being viewed
+    //
 
     // if we have a different category id than previous
     // then set thePageNumber back to 1
