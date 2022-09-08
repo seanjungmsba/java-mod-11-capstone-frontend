@@ -19,7 +19,25 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
 import { LoginStatusComponent } from './components/login-status/login-status.component';
 
+import {
+  OktaAuthModule,
+  OktaCallbackComponent,
+  OKTA_CONFIG
+} from '@okta/okta-angular';
+
+import { OktaAuth } from '@okta/okta-auth-js';
+import AppConfig from './config/app-config';
+
+// the advantage of using Okta instead of using regular OAuth is that
+// once the user is authenticated, they are automatically redirected to the app
+// instead of having to parse the response and storing the OAuth and OIDC tokens
+// OktaCallbackComponent automatically handles this
+const oktaConfig = AppConfig.oidc;
+const oktaAuth = new OktaAuth(oktaConfig);
+
 const routes: Routes = [
+  {path: 'login/callback', component: OktaCallbackComponent},
+  {path: 'login', component: LoginComponent},
   {path: 'checkout', component: CheckoutComponent},
   {path: 'cart-details', component: CartDetailsComponent},
   {path: 'products/:id', component: ProductDetailsComponent},
@@ -49,9 +67,10 @@ const routes: Routes = [
     BrowserModule,
     HttpClientModule,
     NgbModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    OktaAuthModule
   ],
-  providers: [ProductService],
+  providers: [ProductService, {provide: OKTA_CONFIG, useValue : { oktaAuth }}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
