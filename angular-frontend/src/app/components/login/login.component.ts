@@ -16,6 +16,10 @@ export class LoginComponent implements OnInit {
   constructor(@Inject(OKTA_AUTH) private oktaAuth: OktaAuth) {
     this.oktaSignin = new OktaSignIn({
       logo: 'assets/images/logo.png',
+      // features: {
+        // not working because self-service registration is deprecated
+      //   registration: true
+      // },
       baseUrl: AppConfig.oidc.issuer.split('/oauth')[0],
       clientId: AppConfig.oidc.clientId,
       redirectUri: AppConfig.oidc.redirectUri,
