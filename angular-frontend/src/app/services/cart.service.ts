@@ -13,7 +13,21 @@ export class CartService {
   totalPrice: Subject<number> = new BehaviorSubject<number>(0);
   totalQuantity: Subject<number> = new BehaviorSubject<number>(0);
 
-  constructor() { }
+  // sessionStorage: data persistent from web page refresh and login/logout but not from webpage exit
+  // localStorage: also persistent from browser exit
+  storage: Storage = localStorage;
+
+  constructor() { 
+    // read data from storage
+    let data = JSON.parse(this.storage.getItem('cartItems')!);
+
+    if (data != null) {
+      this.cartItems = data;
+
+      // compute totals based on data that is read from storage
+      this.computeCartTotals();
+    }
+  }
 
   addToCart(theCartItem: CartItem) {
 
@@ -60,6 +74,10 @@ export class CartService {
 
     // log cart data just for debugging purposes
     this.logCartData(totalPriceValue, totalQuantityValue);
+
+    // persist cart items
+    this.persistCartItems();
+
   }
 
   logCartData(totalPriceValue: number, totalQuantityValue: number) {
@@ -72,6 +90,12 @@ export class CartService {
 
     console.log(`totalPrice: ${totalPriceValue.toFixed(2)}, totalQuantity: ${totalQuantityValue}`);
     console.log('----');
+  }
+
+  // this method ensures that cart items stay the same after webpage refreshing and/or login/logout
+  persistCartItems() {
+    // first argument is the key and the second argument is the value
+    this.storage.setItem('cartItems', JSON.stringify(this.cartItems));
   }
 
   decrementQuantity(theCartItem: CartItem) {
