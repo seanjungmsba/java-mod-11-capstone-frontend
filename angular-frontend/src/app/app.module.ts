@@ -27,6 +27,7 @@ import {
 
 import { OktaAuth } from '@okta/okta-auth-js';
 import AppConfig from './config/app-config';
+import { OrderHistoryComponent } from './components/order-history/order-history.component';
 
 // the advantage of using Okta instead of using regular OAuth is that
 // once the user is authenticated, they are automatically redirected to the app
@@ -60,7 +61,8 @@ const routes: Routes = [
     CartDetailsComponent,
     CheckoutComponent,
     LoginComponent,
-    LoginStatusComponent
+    LoginStatusComponent,
+    OrderHistoryComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
