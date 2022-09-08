@@ -10,7 +10,7 @@ import {OktaAuth} from '@okta/okta-auth-js';
 })
 export class LoginStatusComponent implements OnInit {
 
-  isAuthentificated: boolean = false;
+  isAuthenticated: boolean = false;
   userFullName: string = '';
 
   constructor(private oktaAuthService: OktaAuthStateService,
@@ -20,14 +20,14 @@ export class LoginStatusComponent implements OnInit {
     // subscribe to authentification state changes
     this.oktaAuthService.authState$.subscribe(
       (result) => {
-        this.isAuthentificated = result.isAuthenticated!;
+        this.isAuthenticated = result.isAuthenticated!;
         this.getUserDetails();
       }
     )
   }
 
   getUserDetails() {
-    if (this.isAuthentificated) {
+    if (this.isAuthenticated) {
       // fetch the logged-in user details (user's claims)
       // user full name is exposed as a property name
       this.oktaAuth.getUser().then(
