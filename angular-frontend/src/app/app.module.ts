@@ -22,7 +22,8 @@ import { LoginStatusComponent } from './components/login-status/login-status.com
 import {
   OktaAuthModule,
   OktaCallbackComponent,
-  OKTA_CONFIG
+  OKTA_CONFIG,
+  OktaAuthGuard
 } from '@okta/okta-angular';
 
 import { OktaAuth } from '@okta/okta-auth-js';
@@ -37,6 +38,7 @@ const oktaConfig = AppConfig.oidc;
 const oktaAuth = new OktaAuth(oktaConfig);
 
 const routes: Routes = [
+  {path: 'order-history', component: OrderHistoryComponent, canActivate: [OktaAuthGuard]},
   {path: 'login/callback', component: OktaCallbackComponent},
   {path: 'login', component: LoginComponent},
   {path: 'checkout', component: CheckoutComponent},
