@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ProductService } from './services/product.service';
 
 import { Routes, RouterModule} from '@angular/router';
@@ -29,6 +29,7 @@ import {
 import { OktaAuth } from '@okta/okta-auth-js';
 import AppConfig from './config/app-config';
 import { OrderHistoryComponent } from './components/order-history/order-history.component';
+import { AuthInterceptorService } from './services/auth-interceptor.service';
 
 // the advantage of using Okta instead of using regular OAuth is that
 // once the user is authenticated, they are automatically redirected to the app
@@ -74,7 +75,11 @@ const routes: Routes = [
     ReactiveFormsModule,
     OktaAuthModule
   ],
-  providers: [ProductService, {provide: OKTA_CONFIG, useValue : { oktaAuth }}],
+  providers: [ProductService, {provide: OKTA_CONFIG, useValue : oktaConfig},
+              // HTTP_INTERCEPTORS: token for HTTP interceptors
+              // AuthInterceptorService is registered by being specified in useClass
+              // multi informs angular that HTTP_INTERCEPTORS is a token for injection an array of values
+              {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
