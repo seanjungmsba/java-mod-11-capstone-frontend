@@ -1,79 +1,85 @@
-import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { Country } from '../common/country';
-import { map } from 'rxjs/operators';
-import { State } from '../common/state';
+import { Injectable } from "@angular/core";
+import { Observable, of } from "rxjs";
+import { HttpClient } from "@angular/common/http";
+import { Country } from "../common/country";
+import { map } from "rxjs/operators";
+import { State } from "../common/state";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
+/* StoreForm Service is responsible for communicating with the
+ * server to retrieve the list of countries and states to be populated on product checkout form page */
 export class StoreFormService {
+  // define urls
+  private countriesUrl = "http://localhost:8080/api/countries";
+  private statesUrl = "http://localhost:8080/api/states";
 
-  private countriesUrl = 'http://localhost:8080/api/countries';
-  private statesUrl = 'http://localhost:8080/api/states';
+  // HttpClient dependency injection since client needs to communicate with the server
+  constructor(private httpClient: HttpClient) {}
 
-  constructor(private httpClient: HttpClient) { }
-
+  /* getCountries() returns Observable of Country[] from API call
+   * GET request is made on `http://localhost:8080/api/countries`
+   */
   getCountries(): Observable<Country[]> {
-
-    return this.httpClient.get<GetResponseCountries>(this.countriesUrl).pipe(
-      map(response => response._embedded.countries)
-    );
+    return this.httpClient
+      .get<GetResponseCountries>(this.countriesUrl)
+      .pipe(map((response) => response._embedded.countries));
   }
 
+  /* getStates() returns Observable of State[] from API call
+   * GET request is made on `http://localhost:8080/api/states/search/findByCountryCode?code=${theCountryCode}`
+   */
   getStates(theCountryCode: string): Observable<State[]> {
-
     // search url
     const searchStatesUrl = `${this.statesUrl}/search/findByCountryCode?code=${theCountryCode}`;
 
-    return this.httpClient.get<GetResponseStates>(searchStatesUrl).pipe(
-      map(response => response._embedded.states)
+    return (
+      this.httpClient
+        .get<GetResponseStates>(searchStatesUrl)
+        // JSON object is unwrapped to Observable of State[]
+        .pipe(map((response) => response._embedded.states))
     );
   }
 
-
   getCreditCardMonths(startMonth: number): Observable<number[]> {
-
+    // initialize array of number where credit card month values are stored
     let data: number[] = [];
-    
-    // build an array for "Month" dropdown list
-    // - start at current month and loop until 
 
+    // build an array for "Month" dropdown list
+    // start at current month and loop until the end of year
     for (let theMonth = startMonth; theMonth <= 12; theMonth++) {
       data.push(theMonth);
     }
-
+    // return observable object
     return of(data);
   }
 
   getCreditCardYears(): Observable<number[]> {
-
+    // initialize array of number where credit card year values are stored
     let data: number[] = [];
 
     // build an array for "Year" downlist list
-    // - start at current year and loop for next 10 years
-    
+    // start at current year and loop for next 10 years
     const startYear: number = new Date().getFullYear();
     const endYear: number = startYear + 10;
 
     for (let theYear = startYear; theYear <= endYear; theYear++) {
       data.push(theYear);
     }
-
+    // return observable object
     return of(data);
   }
-
 }
 
 interface GetResponseCountries {
   _embedded: {
     countries: Country[];
-  }
+  };
 }
 
 interface GetResponseStates {
   _embedded: {
     states: State[];
-  }
+  };
 }
