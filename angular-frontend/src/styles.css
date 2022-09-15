@@ -134,10 +134,8 @@ aside.menu-sidebar.d-none.d-lg-block.clr{
  */
 
 .header-desktop{
-    background:#ffc2c2;
-    -webkit-box-shadow:0 2px 5px 0 rgba(0,0,0,.1);
-    -moz-box-shadow:0 2px 5px 0 rgba(0,0,0,.1);
-    box-shadow:0 2px 5px 0 rgba(0,0,0,.1);
+    background:white;
+    box-shadow: none;
     position:fixed;
     top:0;
     right:0;
@@ -218,7 +216,7 @@ section{
 }
 
 input.au-input.au-input-xl{
-    border-radius:40px!important;
+    border-radius:5px!important;
     margin-right:15px
 }
 
@@ -244,19 +242,16 @@ input.au-input.au-input-xl{
 .cart-area i{
     font-size:22px;
     float:left;
-    margin-top:16px;
-    color:#fff;
-    margin-left:15px
+    margin-left:10px
 }
 
 .total{
-    background:#205b8d;
+    background:#bebe00;
     line-height:43px;
     color:#fff;
     border-radius:30px;
-    border:1px solid #0da8e4;
+    border:1px solid #898909;
     float:left;
-    margin-top:7px;
     padding-left:17px
 }
 
@@ -267,7 +262,8 @@ input.au-input.au-input-xl{
     color:#000;
     border-top-right-radius:20px;
     border-bottom-right-radius:20px;
-    margin-left:11px
+    margin-left:11px;
+    font-weight: 500;
 }
 
 .form-header{
@@ -283,15 +279,16 @@ input.au-input.au-input-xl{
     right:0;
     min-width:95px;
     color:#fff;
-    border:1px solid #205b8d;
+    border:1px solid #898909;
     -webkit-border-radius:3px;
     -moz-border-radius:3px;
-    border-radius:43px;
-    background:#205b8d
+    border-radius:5px;
+    background:#bebe00;
+    font-weight: 500;
 }
 
 .au-btn-submit:hover{
-    background:#05143f
+    background:#898909
 }
 
 .au-btn-submit>i{
@@ -1040,4 +1037,36 @@ footer ul li{
         border:0;
         padding:8px 0
     }
+}
+
+.cursor-pointer{
+    cursor: pointer;
+}
+
+.show-cart{
+    display: block !important;
+}
+.hide-cart{
+    display: none !important;
+}
+
+@media screen and (max-width: 1150px) {
+    .show-cart{
+        display: none !important;
+    }
+    .hide-cart{
+        display: block !important;
+    }
+}
+
+.cart-btn{
+    border: 1px solid #0da8e8;
+    padding: 1px 20px;
+    border-radius: 5px;
+    color: #0da8e8;
+}
+
+.title-product{
+    font-size: 14px;
+    font-weight: bold;
 }
