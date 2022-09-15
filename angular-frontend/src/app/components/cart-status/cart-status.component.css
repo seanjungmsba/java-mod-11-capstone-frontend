@@ -1,0 +1,6 @@
+.cart-area {
+    position: relative;
+    /* 350px middle; 650px for left */
+    right: 350px; 
+    padding: 9px !important;
+}
