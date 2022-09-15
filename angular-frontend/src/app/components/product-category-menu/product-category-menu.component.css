@@ -1,0 +1,15 @@
+.sidebar-item {
+    padding: 10px 15px;
+}
+.sidebar-item:hover {
+    background: #bebe00;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.sidebar-item-active {
+    background: #bebe00;
+    color: white;
+    font-weight: bold;
+}
