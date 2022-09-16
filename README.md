@@ -1,6 +1,6 @@
 # Capstone Project - Angular Frontend
  
-### 1. Running Angular Application 
+## Running Angular Application 
 1. Open Angular application.
 2. Open terminal and navigate to the directory by `cd .\angular-frontend\`.
 3. Run the following command `ng serve --open`.
@@ -16,14 +16,11 @@
 
 **&rarr;** Yes, application implements input validation in `Checkout` component to ensure that user enters valid information in the checkout page and `StoreValidators` to ensure whitespaces are properly handled. For example, credit card number should exactly be 16-digits and the credit card expiration month and year cannot be that of the past.
 
-
-
 ### 2. UX/UI
 
 **Are application totally easy to use and navigate?**
 
 **&rarr;** Generally speaking, this application is very easy to use for anyone who has experience shopping online before. User can easily navigate to different items by clicking the menu bar on the left and simply clicking `Add to cart` button to put items into the cart. Then, cart button on the top banner can be clicked to see the details of the cart. User can also check out cart items by clicking `Checkout` button on the bottom right. Entering user's contact, address, and credit card information is self-explanatory. Login and logout functionality also resembles that of other e-commerce websites such as Amazon and Shopify. Therefore, it can be said that this application is easy to use and navigate.
-
 
 **Does the application look pleasing?**
 
@@ -45,7 +42,6 @@
 - **Password:** `QazxsW1323`
 
 logging out of the session is also done seamlessly by clicking `logout` button located on the top right corner.
-
 
 **Can user register its account?**
 
